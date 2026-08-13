@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-brand-cream: #F9F8F6;
+  --color-brand-charcoal: #2C2C2C;
+  --color-brand-brown: #8B7355;
+  --color-brand-sage: #9DA39A;
+  --color-brand-accent: #D4C9C1;
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  /* 2026 Cinematic Dark Theme */
+  --color-brand-background: #09090b; /* Deep Onyx */
+  --color-brand-surface: #18181b;    /* Charcoal */
+  --color-brand-cream: #fafafa;      /* Off-white */
+  --color-brand-charcoal: #09090b;   /* Keeping for backwards compatibility where used as text */
+  --color-brand-brown: #a1a1aa;      /* Muted metallic for accents */
+  --color-brand-sage: #52525b;       /* Subtle border/text */
+  --color-brand-accent: #27272a;     /* Highlight surface */
+
+  /* Premium Typography Scale */
+  --text-h1: 4.5rem;      /* 72px */
+  --text-h1--md: 5.5rem;  /* 88px */
+  --text-h1--lg: 6rem;    /* 96px */
+  
+  --text-h2: 2.5rem;      /* 40px */
+  --text-h2--md: 3.5rem;  /* 56px */
+  
+  --text-h3: 1.75rem;     /* 28px */
+  --text-h3--md: 2.25rem; /* 36px */
+  
+  --text-body: 1.125rem;  /* 18px */
+  --text-body--md: 1.125rem; /* 18px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--color-brand-background);
+    --foreground: var(--color-brand-cream);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Editorial Eyebrow Label */
+  .eyebrow {
+    @apply text-xs uppercase tracking-[0.25em] text-brand-brown font-medium;
+  }
+  
+  /* Grain Texture Overlay */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-2xl border border-white/5 shadow-2xl;
+  }
 }
